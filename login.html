@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Connexion - Aimes Pointage</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 380px; margin: 80px auto; padding: 0 20px; }
+  h1 { font-size: 1.4rem; text-align:center; }
+  label { display: block; margin-top: 14px; font-weight: 600; font-size: 0.9rem; }
+  input { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
+  button { margin-top: 20px; width:100%; padding: 10px 20px; background: #166534; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  #msg { margin-top: 16px; font-weight: 600; text-align:center; }
+  #msg.err { color: #b91c1c; }
+</style>
+</head>
+<body>
+  <h1>Connexion</h1>
+  <form id="form">
+    <label>Nom d'utilisateur</label>
+    <input type="text" name="username" required autofocus>
+    <label>Mot de passe</label>
+    <input type="password" name="password" required>
+    <button type="submit">Se connecter</button>
+  </form>
+  <div id="msg"></div>
+
+  <script>
+    const form = document.getElementById('form');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      msg.className = '';
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: form.username.value, password: form.password.value })
+        });
+        const data = await res.json();
+
+        if (!data.ok) {
+          msg.className = 'err';
+          msg.textContent = data.error || 'Identifiants invalides';
+          return;
+        }
+
+        window.location.href = '/register-employee.html';
+      } catch (err) {
+        msg.className = 'err';
+        msg.textContent = 'Erreur de connexion au serveur';
+      }
+    });
+  </script>
+</body>
+</html>

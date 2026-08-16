@@ -1,0 +1,108 @@
+=====================================================
+ PAQUET COMPLET (v6 + icône + start-server.bat corrigé)
+ AIMES-AFRIQUE SOS DOCTEUR TV
+=====================================================
+
+Ce paquet contient TOUT le projet, avec :
+  - toutes les fonctionnalités de la mise à jour v6 (permissions
+    détaillées, modification/suppression des utilisateurs, carte
+    recto/verso + son au scan, retards en surbrillance, calendrier
+    d'assiduité, messagerie RH)
+  - l'icône du logo dans l'onglet du navigateur
+  - start-server.bat CORRIGÉ (le bug qui l'empêchait de fonctionner
+    est réglé, détails ci-dessous)
+
+Copie TOUT le contenu de ce paquet dans ton dossier de projet, en
+écrasant les fichiers existants.
+
+
+LE BUG DU start-server.bat (expliqué, pour info)
+-----------------------------------------------------
+Dans la version précédente, j'avais ajouté du texte affiché entre
+parenthèses à l'intérieur d'un bloc "si...sinon" du script. Or,
+dans les scripts .bat Windows, les parenthèses à l'intérieur d'un
+bloc if/else sont interprétées par cmd.exe comme faisant partie de
+la structure du bloc lui-même — même quand elles sont juste dans
+du texte affiché avec "echo". Ça cassait le script au démarrage.
+C'est corrigé : le texte affiché ne contient plus aucune parenthèse
+à l'intérieur des blocs conditionnels.
+
+
+⚠️ RAPPEL — ÉTAPE IMPORTANTE SUR LES PERMISSIONS
+------------------------------------------------------
+Si tu n'as pas encore fait cette étape depuis la mise à jour des
+permissions détaillées : va sur "Gérer les utilisateurs" une fois
+connecté en admin, et recoche les permissions de chaque compte à
+accès limité existant (secrétaire, vigile, etc.) avec les nouvelles
+cases disponibles. Les comptes admin ne sont pas concernés.
+
+Permissions disponibles :
+  - Consulter la liste des employés
+  - Enregistrer de nouveaux employés
+  - Modifier les informations des employés
+  - Supprimer des employés
+  - Consulter la liste des présences
+  - Télécharger / exporter la liste des présences
+  - Scanner les badges
+  - Laisser des messages aux employés
+  - Créer, modifier et supprimer des comptes utilisateurs
+
+
+RÉCAPITULATIF DE TOUTES LES FONCTIONNALITÉS
+------------------------------------------------
+  - Employés     : créer, consulter, modifier, supprimer
+  - Utilisateurs : créer, consulter, modifier, supprimer
+  - Présences    : consulter avec filtres, retards surlignés,
+                   exporter en CSV
+  - Carte        : recto/verso, imprimable, 2 logos, icône d'onglet
+  - Scan         : douchette USB, carte complète affichée + son de
+                   validation, message RH visible si actif
+  - Assiduité    : calendrier mensuel par employé (vert/orange/
+                   rouge/gris) avec compteur de retards
+  - Messagerie RH: message temporaire (1 à 5 jours) par employé,
+                   désactivable manuellement
+  - Démarrage    : start-server.bat avec redémarrage automatique en
+                   cas de plantage, et affichage de l'adresse
+                   réseau à utiliser depuis un autre appareil
+
+
+ÉTAPES D'INSTALLATION
+-----------------------
+1) Ferme le serveur (Ctrl + C, ou ferme la fenêtre du script)
+2) Copie tout le contenu de ce paquet dans ton dossier de projet,
+   en écrasant les fichiers existants
+3) Double-clique sur start-server.bat
+4) Vérifie que la fenêtre affiche bien les deux adresses
+   (locale et réseau) sans erreur
+5) Reconnecte-toi en admin, vérifie/recoche les permissions des
+   comptes existants si ce n'est pas déjà fait
+
+
+RAPPEL — STRUCTURE FINALE DU PROJET
+--------------------------------------
+[ton-projet]/
+├── aimes-pointage.db
+├── server.js
+├── start-server.bat
+├── auth.js
+├── permissions.js
+├── employee-routes.js
+├── dashboard-routes.js
+├── users-routes.js
+├── messages-routes.js
+├── scan-handler.js
+├── create-admin.js
+└── public/
+    ├── login.html
+    ├── dashboard.html
+    ├── employees.html
+    ├── register-employee.html
+    ├── edit-employee.html
+    ├── attendance.html
+    ├── logs.html
+    ├── scan.html
+    ├── card.html
+    ├── users.html
+    └── img/
+        ├── logo-aimes.png
+        └── logo-sos.png
